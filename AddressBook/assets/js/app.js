@@ -1,0 +1,22 @@
+var app = angular.module('AddressBook',['ngRoute','ui.bootstrap'])
+
+app.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
+  // console.log('config');
+
+  $locationProvider.html5Mode(true);
+
+  $routeProvider
+    .when('/', {
+      templateUrl:'/views/home.html',
+      controller:'HomeCtrl'
+    })
+    .when('/contact/new', {
+      templateUrl:'/views/new.html',
+      controller:'NewCtrl'
+    })
+    .when('/contact/:id',{
+      templateUrl:'/views/show.html',
+      controller:'ShowCtrl'
+    })
+
+}])

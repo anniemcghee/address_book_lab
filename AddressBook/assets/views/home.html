@@ -1,0 +1,23 @@
+<h1>Contact List:</h1>
+
+<div class="row">
+  <a href="/contact/new"><button class="btn btn-success">+</button></a>
+  <table class="table">
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Buttons</th>
+    </thead>
+    <tbody ng-repeat="contact in contacts">
+      <tr>
+        <td>{{contact.firstName}}</td>
+        <td>{{contact.lastName}}</td>
+        <td>
+          <a href="/contact/{{contact.id}}"><button class="btn btn-primary">View</button></a>
+          <button class="btn btn-warning" ng-click="editContact($index)">Edit</button>
+          <button class="btn btn-danger" ng-click="deleteContact($index)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
