@@ -1,4 +1,4 @@
-app.controller('EditModalCtrl', ['$scope','$http','$modalInstance','contact', function($scope, $http, $modalInstance, contact) {
+app.controller('EditModalCtrl', ['$scope','$http','$modalInstance','contact', 'AlertService', function($scope, $http, $modalInstance, contact, AlertService) {
 
   $scope.firstName = contact.firstName; //from the home ctrl modal instance
   $scope.lastName = contact.lastName;
@@ -26,6 +26,7 @@ app.controller('EditModalCtrl', ['$scope','$http','$modalInstance','contact', fu
 
     $http.put('/.api/contact/'+contact.id, contactData)
       .success(function(data){
+        AlertService.add('success','Contact has been updated');
         $modalInstance.close(data);
       })
       .error(function(err){

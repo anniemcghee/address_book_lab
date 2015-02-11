@@ -1,8 +1,22 @@
-app.controller('HomeCtrl',['$scope','$http','$modal',function($scope, $http, $modal) {
+app.controller('HomeCtrl',['$scope','$http','$modal', 'AlertService', '$location',function($scope, $http, $modal, AlertService, $location) {
 
   $scope.contacts = [];
 
-  $http.get('/.api/contact').success(function(data){
+  var queryData = $location.search();
+  var searchTerm = queryData.q || false;
+
+  var req = {
+    url:'/.api/contact',
+    params:{
+      'sort':'createdAt desc'
+    }
+  }
+
+  if(searchTerm){
+    req.params.firstName='%'+searchTerm+'%';
+  }
+
+  $http(req).success(function(data){
     $scope.contacts = data;
   })
 
@@ -10,6 +24,7 @@ app.controller('HomeCtrl',['$scope','$http','$modal',function($scope, $http, $mo
     var contactId = $scope.contacts[idx].id;
 
     $http.delete('/.api/contact/'+contactId).success(function(data){
+      AlertService.add('danger','Contact has been removed');
       $scope.contacts.splice(idx,1);
     }).error(function(err){
       alert(err);

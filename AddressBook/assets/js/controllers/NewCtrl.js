@@ -1,4 +1,4 @@
-app.controller('NewCtrl',['$scope','$http','$modal',function($scope, $http, $modal) {
+app.controller('NewCtrl',['$scope','$http','$modal', '$location','AlertService',function($scope, $http, $modal, $location, AlertService) {
 
   $scope.addContact = function(){
     $scope.alert=false;
@@ -16,7 +16,9 @@ app.controller('NewCtrl',['$scope','$http','$modal',function($scope, $http, $mod
     };
 
     $http.post('/.api/contact', data).success(function(data){
-      $scope.alert="Your contact has been created.";
+      $location.path('/');
+      AlertService.add('success','Contact has been added');
+      // $scope.alert="Your contact has been created.";
       $scope.firstName="";
       $scope.lastName="";
       $scope.email="";
